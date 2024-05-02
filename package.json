@@ -4,7 +4,6 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev" : "tailwindcss -i ./Input.css -o ./Web_CSS/output.css --watch"
+    "dev": "tailwindcss -i ./Input.css -o ./Web_CSS/output.css --watch"
   }
-
 }
