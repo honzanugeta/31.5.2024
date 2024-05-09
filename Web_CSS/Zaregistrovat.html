@@ -15,12 +15,18 @@
                 <div class="pb-8"> 
                     <p class="text-4xl text-white font-mono">Zaregistruj se</p>
                 </div>
-                <label for="jmeno" class="text-3xl ">Jméno</label>
-                <input type="text" name="" id="jmeno" autocomplete="off" class="px-8 py-1 rounded-full mb-4" placeholder="Jméno">
+                <label for="jmeno" class="text-3xl">Jméno</label>
+                <input type="text" name="jmeno" id="jmeno" autocomplete="off" class="px-8 py-1 rounded-full mb-4" placeholder="Jméno">
                 <label for="heslo" class="text-3xl">Heslo</label> 
-                <input type="password" pattern=".{8,}" id="heslo" autocomplete="off" class="px-8 py-1 rounded-full mb-4" placeholder="Heslo" >
+                <div class="flex items-center mb-4">
+                    <input type="password" pattern=".{8,}" id="heslo" autocomplete="off" class="px-8 py-1 rounded-full mr-2" placeholder="Heslo">
+                    <label class="inline-flex items-center cursor-pointer">
+                        <input type="checkbox" value="" class="sr-only peer" onclick="UkazHeslo()">
+                        <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-yellow-300 dark:peer-focus:ring-orange-800 rounded-full peer dark:bg-red-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-red-600 peer-checked:bg-yellow-600"></div>
+                    </label>
+                </div>
                 <label for="email" class="text-3xl">Email</label>
-                <input type="email" name="" id="" placeholder="Email prosím 😇" class="px-8 py-1 rounded-full mb-4">
+                <input type="email" name="email" id="email" placeholder="Email prosím 😇" class="px-8 py-1 rounded-full mb-4">
                 <button id="Zaregistrovat" class="px-4 py-2 rounded-full bg-gradient-to-tr from-lime-400 via-orange-400 to-amber-400 font-medium text-2xl transition duration-300 ease-in-out transform hover:scale-105">Zaregistrovat</button>
             </div>
             <div class="inline-flex items-center pt-3">
@@ -28,6 +34,7 @@
                 <button class="bg-gradient-to-tr from-amber-300 to-orange-600 rounded-full px-2 py-1 font-medium text-l transition duration-300 ease-in-out transform hover:scale-105" id="prihlasit">Přihlásit</button>
             </div>            
         </div>
+        
         <script>
             document.getElementById("Zaregistrovat").onclick = function () {
                 location.href = "Eshop.html";
@@ -35,6 +42,16 @@
             document.getElementById("prihlasit").onclick = function () {
                 location.href = "index.html";
             }
+            function UkazHeslo() {
+                var heslo = document.getElementById("heslo");
+                if (heslo.type === "password") {
+                heslo.type = "text";
+             } else {
+                heslo.type = "password";
+            }
+            }
+
+
         </script>
 </body>
 </html>

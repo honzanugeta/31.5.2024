@@ -16,10 +16,16 @@
                 <p class="text-4xl text-white font-mono">Přihlásit se</p>
             </div>
             <label for="jmeno" class="text-3xl text-white">Jméno</label>
-            <input type="text" name="" id="jmeno" autocomplete="off" class="px-8 py-1 rounded-full mb-4" placeholder="Jméno">
+            <input type="text" name="" id="jmeno" autocomplete="off" class="px-8 py-1 rounded-full mb-4 shadow-2xl" placeholder="Jméno">
             <label for="heslo" id="password" class="text-3xl text-white" >Heslo</label>
-            <input type="password" pattern=".{8,}" id="heslo" autocomplete="off" class="px-8 py-1 rounded-full mb-4" placeholder="Heslo">
-            <button id="prihlasit" class="px-4 py-2 rounded-full bg-gradient-to-tr from-lime-400 via-orange-400 to-amber-400 font-medium text-2xl transition duration-300 ease-in-out transform hover:scale-105">Přihlásit</button>
+            <div class="flex items-center mb-4">
+                <input type="password" pattern=".{8,}" id="heslo" autocomplete="off" class="px-8 py-1 rounded-full mr-2" placeholder="Heslo">
+                <label class="inline-flex items-center cursor-pointer">
+                    <input type="checkbox" value="" class="sr-only peer" onclick="UkazHeslo()">
+                    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-200 rounded-full peer dark:bg-blue-900 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-blue-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-blue-300 peer-checked:bg-blue-800"></div>
+                </label>
+            </div>
+            <button id="prihlasit" class=" shadow-xl px-4 py-2 rounded-full bg-gradient-to-tr from-lime-400 via-orange-400 to-amber-400 font-medium text-2xl transition duration-300 ease-in-out transform hover:scale-105">Přihlásit</button>
         </div>
         <div class="inline-flex items-center pt-3">
             <p class="pr-4">Nemáš účet?</p>
@@ -32,6 +38,15 @@
         }
         document.getElementById("Zaregistrovat").onclick = function () {
                 location.href = "Zaregistrovat.html";
+            }
+
+            function UkazHeslo() {
+                var heslo = document.getElementById("heslo");
+                if (heslo.type === "password") {
+                heslo.type = "text";
+             } else {
+                heslo.type = "password";
+            }
             }
     </script>
 </body>
