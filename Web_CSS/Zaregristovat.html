@@ -1,0 +1,38 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/images/potraviny.ico">
+    <link href="./output.css" rel="stylesheet">
+    <title>Zaregristovat se</title>
+</head>
+<body>
+    <body class="bg-gradient-to-r from-pink-500 to-yellow-500 h-full w-full min-h-screen flex flex-col">
+        <!-- Pod tímto je Register stránka -->
+        <div class="flex flex-col justify-center items-center min-h-screen">
+            <p class="text-3xl font-semibold">Vítejte v našem Eshopu</p>
+            <div class="w-full max-w-md bg-gradient-to-tr from-orange-500 to-yellow-500 rounded-md shadow-md px-8 py-6 justify-center items-center flex flex-col drop-shadow-2xl"> 
+                <div class="pb-8"> 
+                    <p class="text-4xl text-white font-mono">Zaregistruj se</p>
+                </div>
+                <label for="jmeno" class="text-3xl ">Jméno</label>
+                <input type="text" name="" id="jmeno" autocomplete="off" class="px-8 py-1 rounded-full mb-4" placeholder="Jméno">
+                <label for="heslo" class="text-3xl ">Heslo</label>
+                <input type="text" name="" id="heslo" autocomplete="off" class="px-8 py-1 rounded-full mb-4" placeholder="Heslo">
+                <button id="Zaregistrovat" class="px-4 py-2 rounded-full bg-gradient-to-tr from-lime-400 via-orange-400 to-amber-400 font-medium text-2xl transition duration-300 ease-in-out transform hover:scale-105">Zaregistrovat</button>
+            </div>
+            <div class="inline-flex items-center pt-3">
+                <p class="pr-4">Máš účet?</p>
+                <button class="bg-gradient-to-tr from-amber-300 to-orange-600 rounded-full px-2 py-1" id="prihlasit">Přihlásit</button>
+            </div>            
+        </div>
+        <script>
+            document.getElementById("Zaregistrovat").onclick = function () {
+                location.href = "Eshop.html";
+            }
+            document.getElementById("prihlasit").onclick = function () {
+                location.href = "index.html";
+            }
+        </script>
+</body>
+</html>
