@@ -29,7 +29,7 @@
               class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10 dropdown-menu">
             </ul>
           </div>
-          <button class="inline-flex items-center px-4 py-2 bg-violet-800 border rounded-md ps-4 text-white">
+          <button id="odhlasit" class="inline-flex items-center px-4 py-2 bg-violet-800 border rounded-md ps-4 text-white">
             Odhlásit se
           </button>
             <input type="text" placeholder="Hledat..." class="border border-gray-300 rounded-md px-2 py-1 w-48">
@@ -223,6 +223,10 @@
                 document.body.removeChild(alertMessage);
             }, 3000);
         }
+
+        document.getElementById("odhlasit").onclick = function () {
+            location.href = "index.html";
+        };
     </script>
 </body>
 </html>

@@ -11,19 +11,20 @@
     <!-- Pod tímto je login stránka -->
     <div class="flex flex-col justify-center items-center min-h-screen">
         <p class="text-3xl font-semibold">Vítejte v našem Eshopu</p>
-        <div class="w-full max-w-md bg-gradient-to-r from-slate-900 to-slate-700 rounded-md shadow-md px-8 py-6 justify-center items-center flex flex-col drop-shadow-2xl"> 
+        <div class="w-full max-w-md bg-gradient-to-r from-slate-900 to-slate-700 rounded-md syhadow-md px-8 py-6 justify-center items-center flex flex-col drop-shadow-2xl"> 
             <div class="pb-8"> 
                 <p class="text-4xl text-white font-mono">Přihlásit se</p>
             </div>
             <label for="jmeno" class="text-3xl text-white">Jméno</label>
             <input type="text" name="" id="jmeno" autocomplete="off" class="px-8 py-1 rounded-full mb-4 shadow-2xl" placeholder="Jméno">
-            <label for="heslo" id="password" class="text-3xl text-white" >Heslo</label>
-            <div class="flex items-center mb-4">
-                <input type="password" pattern=".{8,}" id="heslo" autocomplete="off" class="px-8 py-1 rounded-full mr-2" placeholder="Heslo">
-                <label class="inline-flex items-center cursor-pointer">
-                    <input type="checkbox" value="" class="sr-only peer" onclick="UkazHeslo()">
-                    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-200 rounded-full peer dark:bg-blue-900 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-blue-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-blue-300 peer-checked:bg-blue-800"></div>
-                </label>
+            <label for="heslo" id="password" class="text-3xl text-white">Heslo</label>
+            <div class="flex items-center mb-4 relative">
+                <input type="password" pattern=".{8,}" id="heslo" autocomplete="off" class="px-8 py-1 rounded-full w-full" placeholder="Heslo">
+                <button onclick="UkazHeslo()" class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                    <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0zm-3-7a9 9 0 019 9 9 9 0 01-18 0 9 9 0 019-9z" />
+                    </svg>
+                </button>
             </div>
             <button id="prihlasit" class=" shadow-xl px-4 py-2 rounded-full bg-gradient-to-tr from-lime-400 via-orange-400 to-amber-400 font-medium text-2xl transition duration-300 ease-in-out transform hover:scale-105">Přihlásit</button>
         </div>
@@ -42,11 +43,14 @@
 
             function UkazHeslo() {
                 var heslo = document.getElementById("heslo");
+                var eyeIcon = document.getElementById("eyeIcon");
                 if (heslo.type === "password") {
-                heslo.type = "text";
-             } else {
-                heslo.type = "password";
-            }
+                    heslo.type = "text";
+                    eyeIcon.setAttribute('d', 'M9.9 12.9a1 1 0 11-1.8 0 5 5 0 011.8 0zM12 10a2 2 0 100 4 2 2 0 000-4zm0-4a9 9 0 019 9 9 9 0 01-18 0 9 9 0 019-9z');
+                } else {
+                    heslo.type = "password";
+                    eyeIcon.setAttribute('d', 'M15 12a3 3 0 11-6 0 3 3 0 016 0zm-3-7a9 9 0 019 9 9 9 0 01-18 0 9 9 0 019-9z');
+                }
             }
     </script>
 </body>

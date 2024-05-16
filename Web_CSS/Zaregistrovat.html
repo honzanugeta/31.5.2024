@@ -18,12 +18,13 @@
                 <label for="jmeno" class="text-3xl">Jméno</label>
                 <input type="text" name="jmeno" id="jmeno" autocomplete="off" class="px-8 py-1 rounded-full mb-4" placeholder="Jméno">
                 <label for="heslo" class="text-3xl">Heslo</label> 
-                <div class="flex items-center mb-4">
-                    <input type="password" pattern=".{8,}" id="heslo" autocomplete="off" class="px-8 py-1 rounded-full mr-2" placeholder="Heslo">
-                    <label class="inline-flex items-center cursor-pointer">
-                        <input type="checkbox" value="" class="sr-only peer" onclick="UkazHeslo()">
-                        <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-yellow-300 dark:peer-focus:ring-orange-800 rounded-full peer dark:bg-red-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-red-600 peer-checked:bg-yellow-600"></div>
-                    </label>
+                <div class="flex items-center mb-4 relative">
+                    <input type="password" pattern=".{8,}" id="heslo" autocomplete="off" class="px-8 py-1 rounded-full w-full" placeholder="Heslo">
+                    <button onclick="UkazHeslo()" class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                        <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0zm-3-7a9 9 0 019 9 9 9 0 01-18 0 9 9 0 019-9z" />
+                        </svg>
+                    </button>  
                 </div>
                 <label for="email" class="text-3xl">Email</label>
                 <input type="email" name="email" id="email" placeholder="Email prosím 😇" class="px-8 py-1 rounded-full mb-4">
