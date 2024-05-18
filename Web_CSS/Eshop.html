@@ -8,104 +8,125 @@
     <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <title>Eshop Potravin</title>
 </head>
-<body class="bg-gradient-to-r from-violet-600 to-violet-600 h-full w-full min-h-screen">
+<body class="bg-gradient-to-r from-violet-600 to-violet-600 min-h-screen">
     <header class="bg-gradient-to-b from-fuchsia-900 to-violet-600 py-2 px-4 flex justify-between items-center">
         <img src="/images/Mataw.jpg" alt="Eshop Potravin Logo" class="h-8 w-auto border-black border-solid border-2">
-        <nav class="flex space-x-4">
+    
+        <!-- Desktop navigation menu -->
+        <nav class="hidden md:flex space-x-4">
             <a href="#" class="text-white hover:text-green-100 px-3 py-2 font-medium hover:font-bold">Maso</a>
             <a href="#" class="text-white hover:text-green-100 px-3 py-2 font-medium hover:font-bold">Ovoce</a>
             <a href="#" class="text-white hover:text-green-100 px-3 py-2 font-medium hover:font-bold">Zelenina</a>
             <a href="#" class="text-white hover:text-green-100 px-3 py-2 font-medium hover:font-bold">Ostatní</a>
             <button onclick="toggleModal()" data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="text-white hover:text-green-100 px-3 py-2 font-medium hover:font-bold" type="button">Přidat produkt</button>
         </nav>
-        <div x-data="{ open: false }" class="relative mr-2">
-            <button
-              @click="open = !open"
-              class="inline-flex items-center px-4 py-2 bg-violet-800 border border-violet-100 rounded-md font-medium text-white hover:bg-opacity-75 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-              <img src="/Images/pngwing.com (1).png" alt="Menu Button" class="mr-2 h-6 w-6" />Košík</button>
-            <ul
-              x-show="open"
-              @click.away="open = false"
-              class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10 dropdown-menu">
-            </ul>
-          </div>
-          <button id="odhlasit" class="inline-flex items-center px-4 py-2 bg-violet-800 border rounded-md ps-4 text-white">
-            Odhlásit se
-          </button>
-            <input type="text" placeholder="Hledat..." class="border border-gray-300 rounded-md px-2 py-1 w-48">
+        
+        <!-- Search bar and buttons -->
+        <div class="flex items-center space-x-2 md:order-3">
+            <input type="text" placeholder="Hledat..." class="hidden md:block border border-gray-300 rounded-md px-2 py-1 w-48">
+            <div x-data="{ open: false }" class="relative">
+                <button @click="open = !open" class="inline-flex items-center px-4 py-2 bg-violet-800 border border-violet-100 rounded-md font-medium text-white hover:bg-opacity-75 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    <img src="/Images/pngwing.com (1).png" alt="Menu Button" class="mr-2 h-6 w-6">Košík
+                </button>
+                <ul x-show="open" @click.away="open = false" class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10 dropdown-menu"></ul>
+            </div>
+            <button id="odhlasit" class="inline-flex items-center px-4 py-2 bg-violet-800 border rounded-md text-white">
+                Odhlásit se
+            </button>
+        </div>
+    
+        <!-- Mobile menu button -->
+        <div x-data="{ open: false }" class="md:hidden">
+            <button @click="open = !open" class="text-white">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+            <!-- Mobile navigation menu -->
+            <nav x-show="open" x-transition class="absolute right-0 mt-2 w-48 bg-violet-700 rounded-md shadow-lg z-10 flex flex-col space-y-2">
+                <a href="#" class="text-white hover:text-green-100 px-3 py-2 font-medium hover:font-bold">Maso</a>
+                <a href="#" class="text-white hover:text-green-100 px-3 py-2 font-medium hover:font-bold">Ovoce</a>
+                <a href="#" class="text-white hover:text-green-100 px-3 py-2 font-medium hover:font-bold">Zelenina</a>
+                <a href="#" class="text-white hover:text-green-100 px-3 py-2 font-medium hover:font-bold">Ostatní</a>
+                <button onclick="toggleModal()" data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="text-white hover:text-green-100 px-3 py-2 font-medium hover:font-bold" type="button">Přidat produkt</button>
+            </nav>
         </div>
     </header>
-    <div class="grid-cols-3 grid ">
-    <main class="container mx-auto px-4 py-4 flex-grow">
-        <div class="grid grid-cols-1 ">
-            <div class="bg-white shadow-md rounded-md p-4 flex flex-col">
-                <img src="/images/IMG_7763.png" alt="Brambora" class="w-full h-40 object-cover mb-2">
-                <h3 class="text-lg font-semibold "id="produktnazev">Brambory</h3>
-                <p class="text-gray-600 text-sm">Brambory jsou jednou z nejoblíbenějších zelenin po celém světě. Jsou bohaté na škrob a vlákninu a mohou být připraveny mnoha způsoby - vařené, pečené, smažené nebo dokonce jako součást různých pokrmů.</p>
-                <div class="flex justify-between items-center mt-auto">
-                    <span class="text-violet-500 font-bold">Cena 25Kč/Kg</span>
-                    <button onclick="addToBasket(document.getElementById('produktnazev').textContent, 25)" class="bg-purple-500 hover:bg-purple-700 text-white font-semibold py-1 px-2 rounded-md">Přidat do košíku</button>                
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <main class="container mx-auto px-4 py-4 flex-grow">
-        <div class="grid grid-cols-1 ">
-            <div class="bg-white shadow-md rounded-md p-4 flex flex-col">
-                <img src="/images/IMG_7763.png" alt="Second Product" class="w-full h-40 object-cover mb-2">
-                <h3 class="text-lg font-semibold " id="produktnazev2">Second Product</h3>
-                <p class="text-gray-600 text-sm">Description of the second product goes here.</p>
-                <div class="flex justify-between items-center mt-auto">
-                    <span class="text-violet-500 font-bold">Price: 50Kč</span>
-                    <button onclick="addToBasket(document.getElementById('produktnazev2').textContent, 50)" class="bg-purple-500 hover:bg-purple-700 text-white font-semibold py-1 px-2 rounded-md">Add to Cart</button>                
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <main class="container mx-auto px-4 py-4 flex-grow">
-        <div class="grid grid-cols-1 ">
-            <div class="bg-white shadow-md rounded-md p-4 flex flex-col">
-                <img src="/images/IMG_7763.png" alt="Second Product" class="w-full h-40 object-cover mb-2">
-                <h3 class="text-lg font-semibold " id="produktnazev3">Third Product</h3>
-                <p class="text-gray-600 text-sm">Description of the third product goes here.</p>
-                <div class="flex justify-between items-center mt-auto">
-                    <span class="text-violet-500 font-bold">Price: 100Kč</span>
-                    <button onclick="addToBasket(document.getElementById('produktnazev3').textContent, 100)" class="bg-purple-500 hover:bg-purple-700 text-white font-semibold py-1 px-2 rounded-md">Add to Cart</button>                
-                </div>
-            </div>
-        </div>
-    </main>
-    <main class="container mx-auto px-4 py-4 flex-grow">
-        <div class="grid grid-cols-1 ">
-            <div class="bg-white shadow-md rounded-md p-4 flex flex-col">
-                <img src="/images/IMG_7763.png" alt="Second Product" class="w-full h-40 object-cover mb-2">
-                <h3 class="text-lg font-semibold " id="produktnazev4">Fourth Product</h3>
-                <p class="text-gray-600 text-sm">Description of the fourth product goes here.</p>
-                <div class="flex justify-between items-center mt-auto">
-                    <span class="text-violet-500 font-bold">Price: 200Kč</span>
-                    <button onclick="addToBasket(document.getElementById('produktnazev4').textContent, 200)" class="bg-purple-500 hover:bg-purple-700 text-white font-semibold py-1 px-2 rounded-md">Add to Cart</button>                
-                </div>
-            </div>
-        </div>
-    </main>
     
+    
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+        <main class="bg-white shadow-md rounded-md p-4 flex flex-col">
+            <img src="/images/IMG_7763.png" alt="Brambora" class="w-full h-40 object-cover mb-2">
+            <h3 class="text-lg font-semibold" id="produktnazev">Brambory</h3>
+            <p class="text-gray-600 text-sm">Brambory jsou jednou z nejoblíbenějších zelenin po celém světě. Jsou bohaté na škrob a vlákninu a mohou být připraveny mnoha způsoby - vařené, pečené, smažené nebo dokonce jako součást různých pokrmů.</p>
+            <div class="flex justify-between items-center mt-auto">
+                <span class="text-violet-500 font-bold">Cena 25Kč/Kg</span>
+                <button onclick="addToBasket(document.getElementById('produktnazev').textContent, 25)" class="bg-purple-500 hover:bg-purple-700 text-white font-semibold py-1 px-2 rounded-md">Přidat do košíku</button>
+            </div>
+        </main>
+        <main class="bg-white shadow-md rounded-md p-4 flex flex-col">
+            <img src="/images/IMG_7763.png" alt="Second Product" class="w-full h-40 object-cover mb-2">
+            <h3 class="text-lg font-semibold" id="produktnazev2">Second Product</h3>
+            <p class="text-gray-600 text-sm">Description of the second product goes here.</p>
+            <div class="flex justify-between items-center mt-auto">
+                <span class="text-violet-500 font-bold">Price: 50Kč</span>
+                <button onclick="addToBasket(document.getElementById('produktnazev2').textContent, 50)" class="bg-purple-500 hover:bg-purple-700 text-white font-semibold py-1 px-2 rounded-md">Add to Cart</button>
+            </div>
+        </main>
+        <main class="bg-white shadow-md rounded-md p-4 flex flex-col">
+            <img src="/images/IMG_7763.png" alt="Third Product" class="w-full h-40 object-cover mb-2">
+            <h3 class="text-lg font-semibold" id="produktnazev3">Third Product</h3>
+            <p class="text-gray-600 text-sm">Description of the third product goes here.</p>
+            <div class="flex justify-between items-center mt-auto">
+                <span class="text-violet-500 font-bold">Price: 100Kč</span>
+                <button onclick="addToBasket(document.getElementById('produktnazev3').textContent, 100)" class="bg-purple-500 hover:bg-purple-700 text-white font-semibold py-1 px-2 rounded-md">Add to Cart</button>
+            </div>
+        </main>
+        <main class="bg-white shadow-md rounded-md p-4 flex flex-col">
+            <img src="/images/IMG_7763.png" alt="Fourth Product" class="w-full h-40 object-cover mb-2">
+            <h3 class="text-lg font-semibold" id="produktnazev4">Fourth Product</h3>
+            <p class="text-gray-600 text-sm">Description of the fourth product goes here.</p>
+            <div class="flex justify-between items-center mt-auto">
+                <span class="text-violet-500 font-bold">Price: 200Kč</span>
+                <button onclick="addToBasket(document.getElementById('produktnazev4').textContent, 200)" class="bg-purple-500 hover:bg-purple-700 text-white font-semibold py-1 px-2 rounded-md">Add to Cart</button>
+            </div>
+        </main>
     </div>
-<footer class="flex flex-col md:flex-row justify-between items-center bg-gradient-to-b from-violet-600 to-indigo-900 text-white py-4 px-4">
-    <div class="text-sm">
-        <p>Copyright &copy; 2024 Eshop Potravin. All rights reserved.</p>
-    </div>
-
-    <div class="flex flex-col space-y-2 md:space-y-0">
-        <p>Eshop Potravin</p>
-        <p>Velké Chvojno 13</p>
-        <p>Velké Chvojno, 403 34</p>
-    </div>
-
-    <div class="w-full md:w-1/2 h-48 mt-4 md:mt-0">
-        <div class="mapouter"><div class="gmap_canvas"><iframe class="gmap_iframe" width="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=600&amp;height=200&amp;hl=en&amp;q=velke chvojno 13&amp;t=h&amp;z=19&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe><a href="https://embed-googlemap.com">google maps embed</a></div><style>.mapouter{position:relative;text-align:right;width:100%;height:200px;}.gmap_canvas {overflow:hidden;background:none!important;width:100%;height:200px;}.gmap_iframe {height:200px!important;}</style></div>
-</footer>
+    <footer class="flex flex-col md:flex-row justify-between items-center bg-gradient-to-b from-violet-600 to-indigo-900 text-white py-4 px-4 space-y-4 md:space-y-0">
+        <div class="text-sm">
+            <p>&copy; 2024 Eshop Potravin. All rights reserved.</p>
+        </div>
+        <div class="flex flex-col space-y-2 md:space-y-0">
+            <p>Eshop Potravin</p>
+            <p>Velké Chvojno 13</p>
+            <p>Velké Chvojno, 403 34</p>
+        </div>
+        <div class="w-full md:w-1/2 h-48 mt-4 md:mt-0">
+            <div class="mapouter">
+                <div class="gmap_canvas">
+                    <iframe class="gmap_iframe w-full h-full" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=600&height=200&hl=en&q=velke chvojno 13&t=h&z=19&ie=UTF8&iwloc=B&output=embed"></iframe>
+                    <a href="https://embed-googlemap.com">google maps embed</a>
+                </div>
+                <style>
+                    .mapouter {
+                        position: relative;
+                        text-align: right;
+                        width: 100%;
+                        height: 200px;
+                    }
+                    .gmap_canvas {
+                        overflow: hidden;
+                        background: none !important;
+                        width: 100%;
+                        height: 100%;
+                    }
+                    .gmap_iframe {
+                        height: 200px !important;
+                    }
+                </style>
+            </div>
+        </div>
+    </footer>
 
    <div id="overlay" class="hidden fixed top-0 left-0 w-full h-full bg-black opacity-50 z-40"></div>
 
@@ -172,48 +193,55 @@
         }
         
         function addToBasket(productName, productPrice) {
-        const dropdownMenu = document.querySelector('.dropdown-menu');
-        const existingItem = dropdownMenu.querySelector(`[data-product="${productName}"]`);
+    const dropdownMenu = document.querySelector('.dropdown-menu');
+    const existingItem = dropdownMenu.querySelector(`[data-product="${productName}"]`);
 
-        if (existingItem) {
-            const quantity = parseInt(existingItem.getAttribute('data-quantity')) + 1;
+    if (existingItem) {
+        const quantity = parseInt(existingItem.getAttribute('data-quantity')) + 1;
         existingItem.textContent = `${productName} (${quantity}) - Cena: ${quantity * productPrice}Kč`;
-            existingItem.setAttribute('data-quantity', quantity);
-        } else {
-         const newItem = document.createElement('li');
-            newItem.innerHTML = `
+        existingItem.setAttribute('data-quantity', quantity);
+    } else {
+        const newItem = document.createElement('li');
+        newItem.innerHTML = `
         <div class="flex flex-col">
-        <div class="inline-flex items-center">
-          <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-200" data-product="${productName}" data-quantity="1"> 
-            ${productName} (1) - Cena: ${productPrice}Kč
-          </a>
-          <button class="px-4" id="odstranit">❌</button>
-        </div>
+            <div class="inline-flex items-center">
+                <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-200" data-product="${productName}" data-quantity="1">
+                    ${productName} (1) - Cena: ${productPrice}Kč
+                </a>
+                <button class="px-4" id="odstranit">❌</button>
+            </div>
         </div>`;
         dropdownMenu.appendChild(newItem);
 
-        const existingOrderButton = dropdownMenu.querySelector('.bg-purple-500');
+        const existingOrderButton = dropdownMenu.querySelector('#objednatButton');
         if (!existingOrderButton) {
-        const orderButton = document.createElement('button');
-        orderButton.classList.add('px-4', 'py-2', 'mt-2', 'bg-purple-500', 'hover:bg-purple-600', 'text-white', 'absolute', 'bottom-0'); 
-        orderButton.id ='objednatButton';
-        orderButton.textContent = 'Objednat';
-        dropdownMenu.appendChild(orderButton);
-    }
-             
-                const removeButton = newItem.querySelector('#odstranit');
-                removeButton.addEventListener('click', () => {
-                    const existingItem = dropdownMenu.querySelector(`[data-product="${productName}"]`);
-                    let quantity = parseInt(existingItem.getAttribute('data-quantity'));
-                    if (quantity > 1) {
-                        quantity--;
-                        existingItem.textContent = `${productName} (${quantity}) - Cena: ${quantity * productPrice}Kč`;
-                        existingItem.setAttribute('data-quantity', quantity);
-                    } else {
-                        dropdownMenu.removeChild(newItem);
+            const orderButton = document.createElement('button');
+            orderButton.classList.add('px-4', 'py-2', 'mt-2', 'bg-purple-500', 'hover:bg-purple-600', 'text-white', 'w-full');
+            orderButton.id = 'objednatButton';
+            orderButton.textContent = 'Objednat';
+            dropdownMenu.appendChild(orderButton);
+        }
+
+        const removeButton = newItem.querySelector('#odstranit');
+        removeButton.addEventListener('click', () => {
+            const existingItem = dropdownMenu.querySelector(`[data-product="${productName}"]`);
+            let quantity = parseInt(existingItem.getAttribute('data-quantity'));
+            if (quantity > 1) {
+                quantity--;
+                existingItem.textContent = `${productName} (${quantity}) - Cena: ${quantity * productPrice}Kč`;
+                existingItem.setAttribute('data-quantity', quantity);
+            } else {
+                dropdownMenu.removeChild(newItem);
+                const remainingItems = dropdownMenu.querySelectorAll('li');
+                if (remainingItems.length === 0) {
+                    const orderButton = dropdownMenu.querySelector('#objednatButton');
+                    if (orderButton) {
+                        dropdownMenu.removeChild(orderButton);
                     }
-                });
-            }   
+                }
+            }
+        });
+    }
 
             const alertMessage = document.createElement('div');
             alertMessage.textContent = `${productName} byl/i přidán do košíku`;
