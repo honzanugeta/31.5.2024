@@ -97,10 +97,12 @@
                 <span class="text-violet-500 font-bold">Price: 200Kč</span>
                 <div class="flex space-x-2">
                     <button class="bg-purple-500 rounded px-1 py- text-white" id="odstranitButton">Odstranit ❌</button>
+                    <button class="bg-purple-500 rounded px-1 py- text-white UpravitButton">Upravit</button> 
                     <button onclick="addToBasket(document.getElementById('produktnazev4').textContent, 200)" class="bg-purple-500 hover:bg-purple-700 text-white font-semibold py-1 px-2 rounded-md">Add to Cart</button>
                 </div>
             </div>
         </main>
+
         
     </div>
     <footer class="flex flex-col md:flex-row justify-between items-center bg-gradient-to-b from-violet-600 to-indigo-900 text-white py-4 px-4 space-y-4 md:space-y-0">
@@ -267,6 +269,32 @@
         document.getElementById("odhlasit").onclick = function () {
             location.href = "index.html";
         };
+
+        document.addEventListener("DOMContentLoaded", () => {
+    const editButtons = document.getElementsByClassName("UpravitButton");
+
+    Array.from(editButtons).forEach(button => {
+        button.addEventListener("click", (event) => {
+            const productElement = event.target.closest("main");
+            populateModal(productElement);
+            console.log("facham"); // This will log to the console when the button is clicked
+            toggleModal();
+        });
+    });
+        });
+    function populateModal(productElement) {
+        const productName = productElement.querySelector("h3").textContent;
+        const productDescription = productElement.querySelector("p").textContent;
+        const productPrice = productElement.querySelector("span").textContent.split(" ")[1].replace("Kč", "");
+        const productImageSrc = productElement.querySelector("img").src;
+
+        document.getElementById("nazevproduktu").value = productName;
+        document.getElementById("popis").value = productDescription;
+        document.getElementById("cenaproduktu").value = productPrice;
+        document.getElementById("ProduktObrazek").dataset.currentImage = productImageSrc; 
+        document.querySelector("#crud-modal h3").textContent = "Upravit produkt";
+    }
+    
     </script>
 </body>
 </html>
