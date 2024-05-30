@@ -55,53 +55,15 @@
                 <a href="#" class="text-white hover:text-green-100 px-3 py-2 font-medium hover:font-bold">Ovoce</a>
                 <a href="#" class="text-white hover:text-green-100 px-3 py-2 font-medium hover:font-bold">Zelenina</a>
                 <a href="#" class="text-white hover:text-green-100 px-3 py-2 font-medium hover:font-bold">Ostatní</a>
-                <button onclick="toggleModal()" data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="text-white hover:text-green-100 px-3 py-2 font-medium hover:font-bold" type="button">Přidat produkt</button>
+                <button onclick="toggleModal()" data-modal-target="crud-modal"id = "ButtonPridat2" data-modal-toggle="crud-modal" class="text-white hover:text-green-100 px-3 py-2 font-medium hover:font-bold" type="button">Přidat produkt</button>
             </nav>
         </div>
     </header>
     
     
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 p-4" id="produkty">
-        <main class="bg-white shadow-md rounded-md p-4 flex flex-col">
-            <img src="/images/IMG_7763.png" alt="Brambora" class="w-full h-40 object-cover mb-2">
-            <h3 class="text-lg font-semibold" id="produktnazev">Brambory</h3>
-            <p class="text-gray-600 text-sm">Brambory jsou jednou z nejoblíbenějších zelenin po celém světě. Jsou bohaté na škrob a vlákninu a mohou být připraveny mnoha způsoby - vařené, pečené, smažené nebo dokonce jako součást různých pokrmů.</p>
-            <div class="flex justify-between items-center mt-auto">
-                <span class="text-violet-500 font-bold">Cena 25Kč/Kg</span>
-                <button onclick="addToBasket(document.getElementById('produktnazev').textContent, 25)" class="bg-purple-500 hover:bg-purple-700 text-white font-semibold py-1 px-2 rounded-md">Přidat do košíku</button>
-            </div>
-        </main>
-        <main class="bg-white shadow-md rounded-md p-4 flex flex-col">
-            <img src="/images/IMG_7763.png" alt="Second Product" class="w-full h-40 object-cover mb-2">
-            <h3 class="text-lg font-semibold" id="produktnazev2">Second Product</h3>
-            <p class="text-gray-600 text-sm">Description of the second product goes here.</p>
-            <div class="flex justify-between items-center mt-auto">
-                <span class="text-violet-500 font-bold">Price: 50Kč</span>
-                <button onclick="addToBasket(document.getElementById('produktnazev2').textContent, 50)" class="bg-purple-500 hover:bg-purple-700 text-white font-semibold py-1 px-2 rounded-md">Add to Cart</button>
-            </div>
-        </main>
-        <main class="bg-white shadow-md rounded-md p-4 flex flex-col">
-            <img src="/images/IMG_7763.png" alt="Third Product" class="w-full h-40 object-cover mb-2">
-            <h3 class="text-lg font-semibold" id="produktnazev3">Third Product</h3>
-            <p class="text-gray-600 text-sm">Description of the third product goes here.</p>
-            <div class="flex justify-between items-center mt-auto">
-                <span class="text-violet-500 font-bold">Price: 100Kč</span>
-                <button onclick="addToBasket(document.getElementById('produktnazev3').textContent, 100)" class="bg-purple-500 hover:bg-purple-700 text-white font-semibold py-1 px-2 rounded-md">Add to Cart</button>
-            </div>
-        </main>
-        <main class="bg-white shadow-md rounded-md p-4 flex flex-col">
-            <img src="/images/IMG_7763.png" alt="Fourth Product" class="w-full h-40 object-cover mb-2">
-            <h3 class="text-lg font-semibold" id="produktnazev4">Fourth Product</h3>
-            <p class="text-gray-600 text-sm">Description of the fourth product goes here.</p>
-            <div class="flex justify-between items-center mt-auto">
-                <span class="text-violet-500 font-bold">Price: 200Kč</span>
-                <div class="flex space-x-2">
-                    <button class="bg-purple-500 rounded px-1 py- text-white" id="odstranitButton">Odstranit ❌</button>
-                    <button class="bg-purple-500 rounded px-1 py- text-white UpravitButton">Upravit</button> 
-                    <button onclick="addToBasket(document.getElementById('produktnazev4').textContent, 200)" class="bg-purple-500 hover:bg-purple-700 text-white font-semibold py-1 px-2 rounded-md">Add to Cart</button>
-                </div>
-            </div>
-        </main>
+       
+        
 
         
     </div>
@@ -186,7 +148,7 @@
                                 <textarea id="popis" rows="4" class="block p-2.5 w-full text-sm text-black bg-violet-50 rounded-lg border border-violet-300 focus:ring-violet-500 focus:border-violet-500 dark:bg-violet-400 dark:border-violet-500 dark:placeholder-black dark:text-black dark:focus:ring-violet-500 dark:focus:border-violet-500" placeholder="Sem patří popis produktu"></textarea>
                             </div>
                         </div>
-                        <button id="pridatproduct" type="submit" class="text-white inline-flex items-center bg-violet-900 hover:bg-violet-800 focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-violet-800">
+                        <button id="pridatproduct" type="button" onclick="pridatprodukt()" class="text-white inline-flex items-center bg-violet-900 hover:bg-violet-800 focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-violet-800">
                             ➕
                             Přidat produkt
                         </button>
@@ -198,6 +160,34 @@
 </div>
 
     <script>
+
+    var UserData;
+
+    async function initPage() {
+
+        await getUserData();
+
+        const ButtonPridat = document.getElementById("ButtonPridat");
+        const ButtonPridat2 = document.getElementById("ButtonPridat2");
+
+
+        if (UserData && UserData.role === "Admin") {
+            ButtonPridat.style.display = "block";
+            ButtonPridat2.style.display = "block";
+            console.log("vidět");
+        } else {
+            ButtonPridat.style.display = "none";
+            ButtonPridat2.style.display = "none";
+        
+            console.log("znevidět");
+        
+        }
+
+
+        displayProducts(); 
+        }
+
+   window.onload = initPage;
 
         function toggleModal() {
             const modal = document.getElementById('crud-modal');
@@ -215,9 +205,9 @@
         existingItem.textContent = `${productName} (${quantity}) - Cena: ${quantity * productPrice}Kč`;
         existingItem.setAttribute('data-quantity', quantity);
     } else {
-        const newItem = document.createElement('li');
+        const newItem = document.createElement('li'); // here je v košíku seznamu, takže možnost dodělat v database
         newItem.innerHTML = `
-        <div class="flex flex-col">
+        <div class="flex flex-col"> 
             <div class="inline-flex items-center">
                 <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-200" data-product="${productName}" data-quantity="1">
                     ${productName} (1) - Cena: ${productPrice}Kč
@@ -270,18 +260,15 @@
             location.href = "index.html";
         };
 
-        document.addEventListener("DOMContentLoaded", () => {
-    const editButtons = document.getElementsByClassName("UpravitButton");
+        const produktyContainer = document.getElementById('produkty');
 
-    Array.from(editButtons).forEach(button => {
-        button.addEventListener("click", (event) => {
-            const productElement = event.target.closest("main");
-            populateModal(productElement);
-            console.log("facham"); // This will log to the console when the button is clicked
-            toggleModal();
-        });
-    });
-        });
+produktyContainer.addEventListener('click', function(event) {
+    if (event.target.classList.contains('UpravitButton')) {
+        const productElement = event.target.closest('main');
+        populateModal(productElement);
+        toggleModal();
+    }
+});
     function populateModal(productElement) {
         const productName = productElement.querySelector("h3").textContent;
         const productDescription = productElement.querySelector("p").textContent;
@@ -294,6 +281,191 @@
         document.getElementById("ProduktObrazek").dataset.currentImage = productImageSrc; 
         document.querySelector("#crud-modal h3").textContent = "Upravit produkt";
     }
+
+       //this method return info about current User
+       async function getUserData() {
+        const token = localStorage.getItem('jwtToken'); // Získání tokenu z localStorage
+        console.log(token);
+        const response = await fetch('http://localhost:5145/api/User/getUser', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` // Připojení tokenu do hlavičky autorizace
+            }
+        });
+
+        if (response.status === 401) { // Kontrola, zda je odpověď 401 Unauthorized
+            window.location.href = "index.html"; // Přesměrování na index.html
+            // Přesměrování na index.html když token je neplatný 
+        }
+
+        if (response.ok) {
+        const userData = await response.json(); // zde v userData jsou infromace o uživateli
+        console.log('User info:', userData.username, userData.email, userData.role, userData.id);
+        UserData = userData;
+        } else {
+        console.error('Failed to fetch user info.');
+
+        }
+    }
+
+    function transformPath(originalPath) {
+    // Získání názvu souboru z původní cesty
+    const filename = originalPath.split('\\').pop();
+
+    // Přidání "/Images/" před název souboru
+    const newPath = "/Images/" + filename;
+
+    return newPath;
+}
+
+
+         async function pridatprodukt(){
+
+
+            
+        const Name = document.getElementById("nazevproduktu").value;
+        const Price = parseFloat(document.getElementById("cenaproduktu").value);
+        const Category = document.getElementById("kategorie").value;
+        const Description = document.getElementById("popis").value;
+        const ImageUrl = document.getElementById("ProduktObrazek").value;
+        console.log(ImageUrl);
+
+        // Použití funkce
+        const originalPath = ImageUrl;
+        const transformedPath = transformPath(originalPath);
+        console.log(transformedPath);  // Vstup: "/Images/Mataw.jpg"
+        //
+        const produkt = {
+            Name: Name,
+            Price: Price,
+            Category: Category,
+            Description: Description,
+            ImageUrl: transformedPath
+        };
+        console.log(produkt);
+        let response;
+        try {
+            response = await fetch('http://localhost:5145/Add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(produkt)
+            });
+        } catch (error) {
+            console.error('Error:', error);
+        }
+        if (response.ok) {
+            console.log('Produkt byl přidán');
+            toggleModal();
+            displayProducts();
+        } else {
+        const result = await response.text(); 
+        console.log(result);
+        }
+
+    }
+   
+    async function getProducts() {
+    const response = await fetch('http://localhost:5145/Products', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+
+    if (response.ok) {
+        const products = await response.json();
+        console.log('Počet produktů:', products.length);
+      
+        return products;
+        console.log(products);
+
+     
+    } else {
+        console.error('Chyba při načítání produktů.');
+    }
+}
+    
+
+// loading
+
+// Function to fetch data from the server
+
+
+// Function to create product HTML
+function createProductHTML(product, index) {
+    return (
+        `<main class="bg-white shadow-md rounded-md p-4 flex flex-col">
+            <img src="${product.imageUrl}" alt="${product.name}" class="w-full h-40 object-cover mb-2"></img>
+            <h3 class="text-lg font-semibold" id="produktnazev${index}">${product.name}</h3>
+            <p class="text-gray-600 text-sm">${product.description}</p>
+            <div class="flex justify-between items-center mt-auto">
+                <span class="text-violet-500 font-bold">Price: ${product.price}Kč</span>
+                <div class="flex space-x-2">
+                    <button  class="bg-purple-500 rounded px-1 py- text-white OdstranitButtonE" id="odstranitButton${index}" onclick="DeleteProduct(${product.id})">Odhlásit ❌</button>
+                    <button class="bg-purple-500 rounded px-1 py- text-white UpravitButton">Upravit</button> 
+                    <button onclick="addToBasket(document.getElementById('produktnazev${index}').textContent, ${product.price})" class="bg-purple-500 hover:bg-purple-700 text-white font-semibold py-1 px-2 rounded-md">Přidat</button>
+                </div>
+            </div>
+        </main>`
+    );
+}
+
+// Function to display products
+async function displayProducts() {
+    const products = await getProducts();
+    const container = document.querySelector('#produkty'); 
+    container.innerHTML = ''; // Clear the container before adding new products řádek pro tebe :DD
+
+    products.forEach((product, index) => {
+      
+        const productHTML = createProductHTML(product, index);
+        container.innerHTML += productHTML;
+    });
+    updateButtonVisibility();
+
+}
+
+
+function updateButtonVisibility() {
+    const odstranitButtons = document.querySelectorAll('.OdstranitButtonE');
+    const upravitButtons = document.querySelectorAll('.UpravitButton');
+
+    if (UserData && UserData.role === "Admin") {
+        odstranitButtons.forEach(button => button.style.display = 'block');
+        upravitButtons.forEach(button => button.style.display = 'block');
+    } else {
+        odstranitButtons.forEach(button => button.style.display = 'none');
+        upravitButtons.forEach(button => button.style.display = 'none');
+    }
+}
+
+
+async function DeleteProduct(productId) {
+    try {
+        const response = await fetch(`http://localhost:5145/ProductDelete/${productId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (response.ok) {
+            console.log('Produkt byl úspěšně odstraněn');
+            // Zde můžete přidat kód pro aktualizaci UI po odstranění produktu
+            displayProducts(); // Předpokládám, že máte funkci, která znovu načte a zobrazí produkty
+        } else {
+            console.error('Chyba při odstraňování produktu:', await response.text());
+        }
+    } catch (error) {
+        console.error('Chyba při odstraňování produktu:', error);
+    }
+}
+
+
+
     
     </script>
 </body>

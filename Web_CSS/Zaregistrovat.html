@@ -38,13 +38,49 @@
             <div class="inline-flex items-center pt-3">
                 <p class="pr-4">Máš účet?</p>
                 <button class="bg-gradient-to-tr from-amber-300 to-orange-600 rounded-full px-2 py-1 font-medium text-l transition duration-300 ease-in-out transform hover:scale-105" id="prihlasit">Přihlásit</button>
-            </div>            
+            </div>
+        <div id="message"></div> <!-- Zde se zobrazí zpráva o registraci -->
+
         </div>
-        
+
         <script>
-            document.getElementById("Zaregistrovat").onclick = function () {
-                location.href = "Eshop.html";
-            }
+     document.getElementById("Zaregistrovat").onclick = async function () {
+
+        const message = document.getElementById('message');
+
+
+        var username =document.getElementById('jmeno').value;
+        var password = document.getElementById('heslo').value;
+        var email = document.getElementById('email').value;
+
+
+        try {
+            const response = await fetch('http://localhost:5145/api/User/registration', {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username, password, email })
+        });
+
+        const result = await response.text(); 
+
+        if (!response.ok) {
+            throw new Error(result); 
+        }
+
+        message.textContent = ""; 
+
+        if (response.status === 200) {
+            location.href = "index.html";
+        }
+        } catch (error) {
+            console.error('Chyba při registrování uživatele:', error);
+            message.textContent = error.message ; // Zobrazení chybové zprávy
+        }
+
+
+}
             document.getElementById("prihlasit").onclick = function () {
                 location.href = "index.html";
             }
