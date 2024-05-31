@@ -113,7 +113,7 @@
             <div class="relative p-4 w-full max-w-md max-h-full">
                 <div class="relative bg-white rounded-lg shadow dark:bg-violet-700">
                     <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-violet-600">
-                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Přidat nový produkt</h3>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white" id="modal-title">Přidat nový produkt</h3>
                         <button onclick="toggleModal()" type="button" class="text-gray-400 bg-transparent hover:bg-purple-200 hover:text-purple-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-purple-600 dark:hover:text-white" data-modal-toggle="crud-modal">
                             ❌
                             <span class="sr-only">Zavřít okno</span>
@@ -148,7 +148,7 @@
                                 <textarea id="popis" rows="4" class="block p-2.5 w-full text-sm text-black bg-violet-50 rounded-lg border border-violet-300 focus:ring-violet-500 focus:border-violet-500 dark:bg-violet-400 dark:border-violet-500 dark:placeholder-black dark:text-black dark:focus:ring-violet-500 dark:focus:border-violet-500" placeholder="Sem patří popis produktu"></textarea>
                             </div>
                         </div>
-                        <button id="pridatproduct" type="button" onclick="pridatprodukt()" class="text-white inline-flex items-center bg-violet-900 hover:bg-violet-800 focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-violet-800">
+                        <button id="actionbutton" type="button" onclick="pridatprodukt()" class="text-white inline-flex items-center bg-violet-900 hover:bg-violet-800 focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-violet-800">
                             ➕
                             Přidat produkt
                         </button>
@@ -194,6 +194,9 @@
             const overlay = document.getElementById('overlay');
             modal.classList.toggle('hidden');
             overlay.classList.toggle('hidden');
+            if (modal.classList.contains('hidden')) {
+        resetModal();
+    }
         }
         
         function addToBasket(productName, productPrice) {
@@ -261,26 +264,47 @@
         };
 
         const produktyContainer = document.getElementById('produkty');
+        const modalTitle = document.getElementById('modal-title');
+        const actionButton = document.getElementById('actionButton');
 
 produktyContainer.addEventListener('click', function(event) {
     if (event.target.classList.contains('UpravitButton')) {
         const productElement = event.target.closest('main');
-        populateModal(productElement);
+        populateModal(productElement, 'upravitprodukt', 'Upravit produkt');
         toggleModal();
     }
 });
-    function populateModal(productElement) {
-        const productName = productElement.querySelector("h3").textContent;
-        const productDescription = productElement.querySelector("p").textContent;
-        const productPrice = productElement.querySelector("span").textContent.split(" ")[1].replace("Kč", "");
-        const productImageSrc = productElement.querySelector("img").src;
+function populateModal(productElement, actionFunction, buttonText) {
+    const productName = productElement.querySelector("h3").textContent;
+    const productDescription = productElement.querySelector("p").textContent;
+    const productPrice = productElement.querySelector("span").textContent.split(" ")[1].replace("Kč", "");
+    const productImageSrc = productElement.querySelector("img").src;
+
 
         document.getElementById("nazevproduktu").value = productName;
         document.getElementById("popis").value = productDescription;
         document.getElementById("cenaproduktu").value = productPrice;
         document.getElementById("ProduktObrazek").dataset.currentImage = productImageSrc; 
+      
+        modalTitle.textContent = "Upravit produkt";
         document.querySelector("#crud-modal h3").textContent = "Upravit produkt";
+        actionButton.textContent = "Upravit produkt";
+        actionButton.onclick = window[actionFunction];
+
     }
+
+
+    function resetModal() {
+    document.getElementById("nazevproduktu").value = '';
+    document.getElementById("popis").value = '';
+    document.getElementById("cenaproduktu").value = '';
+    document.getElementById("ProduktObrazek").value = '';
+    modalTitle.textContent = "Přidat nový produkt";
+    actionButton.textContent = "Přidat produkt";
+    actionButton.onclick = pridatprodukt;
+}
+
+
 
        //this method return info about current User
        async function getUserData() {
