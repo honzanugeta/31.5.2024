@@ -278,7 +278,6 @@
         document.getElementById("odhlasit").onclick = function () {
             location.href = "index.html";
         };
-
         const produktyContainer = document.getElementById('produkty');
 const modalTitle = document.getElementById('modal-title');
 const actionButton = document.getElementById('actionButton');
@@ -286,12 +285,12 @@ const actionButton = document.getElementById('actionButton');
 produktyContainer.addEventListener('click', function(event) {
     if (event.target.classList.contains('UpravitButton')) {
         const productElement = event.target.closest('main');
-        populateModal(productElement); //, 'upravitprodukt', 'Upravit produkt'
+        populateModal(productElement);
         toggleModal();
     }
 });
 
-function populateModal(productElement) { //actionFunction, buttonText
+function populateModal(productElement) {
     const productName = productElement.querySelector("h3").textContent;
     const productDescription = productElement.querySelector("p").textContent;
     const productPrice = productElement.querySelector("span").textContent.split(" ")[1].replace("Kč", "");
@@ -321,10 +320,23 @@ function resetModal() {
 }
 
 function upravitprodukt(productElement) {
-    //tohleto prosím dodělat :)
-    alert("Frantiku, mně to funguje. Jestli to u tebe nefunguje, tak už nevím co dělám špatně.");
+    const updatedPrice = document.getElementById("cenaproduktu").value + " Kč";
+    
+    console.log("Updated Price:", updatedPrice);
 
+    const updatedName = document.getElementById("nazevproduktu").value;
+    const updatedDescription = document.getElementById("popis").value;
+    const updatedImageSrc = document.getElementById("ProduktObrazek").dataset.currentImage;
+
+    productElement.querySelector("h3").textContent = updatedName;
+    productElement.querySelector("p").textContent = updatedDescription;
+    productElement.querySelector("span").textContent = updatedPrice;
+    productElement.querySelector("img").src = updatedImageSrc;
+    
+     // Assuming you have a function to toggle the modal visibility
 }
+
+
 
 
        //this method return info about current User
