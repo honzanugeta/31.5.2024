@@ -320,20 +320,19 @@ function resetModal() {
 }
 
 function upravitprodukt(productElement) {
-    const updatedPrice = document.getElementById("cenaproduktu").value + " Kč";
-    
-    console.log("Updated Price:", updatedPrice);
-
     const updatedName = document.getElementById("nazevproduktu").value;
     const updatedDescription = document.getElementById("popis").value;
+    const updatedPrice = document.getElementById("cenaproduktu").value + " Kč";
     const updatedImageSrc = document.getElementById("ProduktObrazek").dataset.currentImage;
+
+    console.log("Updated Name:", updatedName);
+    console.log("Updated Description:", updatedDescription);
+    console.log("Updated Price:", updatedPrice);
 
     productElement.querySelector("h3").textContent = updatedName;
     productElement.querySelector("p").textContent = updatedDescription;
     productElement.querySelector("span").textContent = updatedPrice;
     productElement.querySelector("img").src = updatedImageSrc;
-    
-     // Assuming you have a function to toggle the modal visibility
 }
 
 
