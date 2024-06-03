@@ -10,7 +10,7 @@
 </head>
 <style>
                 body, html {
-                    cursor: url("/Images/cursor.cur"), auto;
+                    cursor: url("/Images/purplecat.cur"), auto;
                     margin: 0;
                     padding: 0;
                     }
@@ -293,6 +293,7 @@ produktyContainer.addEventListener('click', function(event) {
 function populateModal(productElement) {
     const productName = productElement.querySelector("h3").textContent;
     const productDescription = productElement.querySelector("p").textContent;
+    const productCategorie = productElement.dataset.Category;
     const productPrice = productElement.querySelector("span").textContent.split(" ")[1].replace("Kč", "");
     const productImageSrc = productElement.querySelector("img").src;
 
@@ -300,6 +301,8 @@ function populateModal(productElement) {
     document.getElementById("popis").value = productDescription;
     document.getElementById("cenaproduktu").value = productPrice;
     document.getElementById("ProduktObrazek").dataset.currentImage = productImageSrc; 
+    const categorySelect = document.getElementById("kategorie");
+    categorySelect.value = productCategorie;
     
     modalTitle.textContent = "Upravit produkt";
     document.querySelector("#crud-modal h3").textContent = "Upravit produkt";
@@ -314,6 +317,10 @@ function resetModal() {
     document.getElementById("popis").value = '';
     document.getElementById("cenaproduktu").value = '';
     document.getElementById("ProduktObrazek").value = '';
+
+    const categorySelect = document.getElementById("kategorie");
+    categorySelect.value = categorySelect.querySelector('option[selected]').value;
+
     modalTitle.textContent = "Přidat nový produkt";
     actionButton.textContent = "Přidat produkt";
     actionButton.onclick = pridatprodukt;
@@ -324,16 +331,20 @@ function upravitprodukt(productElement) {
     const updatedDescription = document.getElementById("popis").value;
     const updatedPrice = document.getElementById("cenaproduktu").value + " Kč";
     const updatedImageSrc = document.getElementById("ProduktObrazek").dataset.currentImage;
+    const updatedCategory = document.getElementById("kategorie").value;
 
     console.log("Updated Name:", updatedName);
     console.log("Updated Description:", updatedDescription);
     console.log("Updated Price:", updatedPrice);
+    console.log("Updated Category:", updatedCategory);
 
     productElement.querySelector("h3").textContent = updatedName;
     productElement.querySelector("p").textContent = updatedDescription;
     productElement.querySelector("span").textContent = updatedPrice;
     productElement.querySelector("img").src = updatedImageSrc;
+    productElement.dataset.category = updatedCategory; // Assuming you store the category in a data attribute
 }
+
 
 
 
