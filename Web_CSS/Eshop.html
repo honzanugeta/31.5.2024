@@ -301,8 +301,15 @@ function populateModal(productElement) {
     document.getElementById("cenaproduktu").value = productPrice;
     document.getElementById("ProduktObrazek").dataset.currentImage = productImageSrc; 
     const categorySelect = document.getElementById("kategorie");
-    categorySelect.value = productCategorie;
+    const options = categorySelect.querySelectorAll('option');
     
+    for (const option of options) {
+        if (option.value === productCategorie) {
+            option.selected = true;  
+            break;
+        }
+    }
+
     modalTitle.textContent = "Upravit produkt";
     document.querySelector("#crud-modal h3").textContent = "Upravit produkt";
     
