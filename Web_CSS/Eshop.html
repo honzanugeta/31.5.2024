@@ -47,19 +47,18 @@
         <!-- Mobile menu button -->
         <div x-data="{ open: false }" class="md:hidden">
             <button @click="open = !open" class="text-white">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-                </svg>
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+              </svg>
             </button>
-            <!-- Mobile navigation menu -->
-            <nav x-show="open" x-transition class="absolute right-0 mt-2 w-48 bg-violet-700 rounded-md shadow-lg z-10 flex flex-col space-y-2">
-                <a href="#" class="text-white hover:text-green-100 px-3 py-2 font-medium hover:font-bold">Maso</a>
-                <a href="#" class="text-white hover:text-green-100 px-3 py-2 font-medium hover:font-bold">Ovoce</a>
-                <a href="#" class="text-white hover:text-green-100 px-3 py-2 font-medium hover:font-bold">Zelenina</a>
-                <a href="#" class="text-white hover:text-green-100 px-3 py-2 font-medium hover:font-bold">Ostatní</a>
-                <button onclick="toggleModal()" data-modal-target="crud-modal"id = "ButtonPridat2" data-modal-toggle="crud-modal" class="text-white hover:text-green-100 px-3 py-2 font-medium hover:font-bold" type="button">Přidat produkt</button>
+            <nav x-show="open" x-transition @click.away="open = false" class="absolute right-0 mt-2 w-48 bg-violet-700 rounded-md shadow-lg z-10 flex flex-col space-y-2">
+              <a href="#" class="text-white hover:text-green-100 px-3 py-2 font-medium hover:font-bold">Maso</a>
+              <a href="#" class="text-white hover:text-green-100 px-3 py-2 font-medium hover:font-bold">Ovoce</a>
+              <a href="#" class="text-white hover:text-green-100 px-3 py-2 font-medium hover:font-bold">Zelenina</a>
+              <a href="#" class="text-white hover:text-green-100 px-3 py-2 font-medium hover:font-bold">Ostatní</a>
+              <button onclick="toggleModal()" data-modal-target="crud-modal"id = "ButtonPridat2" data-modal-toggle="crud-modal" class="text-white hover:text-green-100 px-3 py-2 font-medium hover:font-bold" type="button">Přidat produkt</button>
             </nav>
-        </div>
+          </div>          
     </header>
     
     
@@ -327,12 +326,14 @@ function resetModal() {
 }
 
 function upravitprodukt(productElement) {
+    const updatedID = document.getElementById("idcko");
     const updatedName = document.getElementById("nazevproduktu").value;
     const updatedDescription = document.getElementById("popis").value;
     const updatedPrice = document.getElementById("cenaproduktu").value + " Kč";
     const updatedImageSrc = document.getElementById("ProduktObrazek").dataset.currentImage;
     const updatedCategory = document.getElementById("kategorie").value;
 
+    console.log("Updated ID:", updatedID);
     console.log("Updated Name:", updatedName);
     console.log("Updated Description:", updatedDescription);
     console.log("Updated Price:", updatedPrice);
@@ -390,7 +391,7 @@ function upravitprodukt(productElement) {
          async function pridatprodukt(){
 
 
-            
+        const id = document.getElementById("idcko").value;
         const Name = document.getElementById("nazevproduktu").value;
         const Price = parseFloat(document.getElementById("cenaproduktu").value);
         const Category = document.getElementById("kategorie").value;
@@ -465,6 +466,7 @@ function upravitprodukt(productElement) {
 function createProductHTML(product, index) {
     return (
         `<main class="bg-white shadow-md rounded-md p-4 flex flex-col">
+            <h1 hidden id="idcko">${product.id}</h1>
             <img src="${product.imageUrl}" alt="${product.name}" class="w-full h-40 object-cover mb-2"></img>
             <h3 class="text-lg font-semibold" id="produktnazev${index}">${product.name}</h3>
             <p class="text-gray-600 text-sm">${product.description}</p>
