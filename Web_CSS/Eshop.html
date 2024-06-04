@@ -23,10 +23,10 @@
     
         <!-- Desktop navigation menu -->
         <nav class="hidden md:flex space-x-4">
-            <a href="#" class="text-white hover:text-green-100 px-3 py-2 font-medium hover:font-bold">Maso</a>
-            <a href="#" class="text-white hover:text-green-100 px-3 py-2 font-medium hover:font-bold">Ovoce</a>
-            <a href="#" class="text-white hover:text-green-100 px-3 py-2 font-medium hover:font-bold">Zelenina</a>
-            <a href="#" class="text-white hover:text-green-100 px-3 py-2 font-medium hover:font-bold">Ostatní</a>
+            <a href="#" class="text-white hover:text-green-100 px-3 py-2 font-medium hover:font-bold" onclick="LoadMaso()">Maso</a>
+            <a href="#" class="text-white hover:text-green-100 px-3 py-2 font-medium hover:font-bold" onclick="LoadOvoce()">Ovoce</a>
+            <a href="#" class="text-white hover:text-green-100 px-3 py-2 font-medium hover:font-bold"onclick="LoadZelenina()">Zelenina</a>
+            <a href="#" class="text-white hover:text-green-100 px-3 py-2 font-medium hover:font-bold"onclick="LoadOstatni()">Ostatní</a>
             <button onclick="toggleModal()" data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="text-white hover:text-green-100 px-3 py-2 font-medium hover:font-bold" type="button" id="ButtonPridat">Přidat produkt</button>
         </nav>
         
@@ -53,10 +53,10 @@
             </button>
             <!-- Mobile navigation menu -->
             <nav x-show="open" x-transition class="absolute right-0 mt-2 w-48 bg-violet-700 rounded-md shadow-lg z-10 flex flex-col space-y-2">
-                <a href="#" class="text-white hover:text-green-100 px-3 py-2 font-medium hover:font-bold">Maso</a>
-                <a href="#" class="text-white hover:text-green-100 px-3 py-2 font-medium hover:font-bold">Ovoce</a>
-                <a href="#" class="text-white hover:text-green-100 px-3 py-2 font-medium hover:font-bold">Zelenina</a>
-                <a href="#" class="text-white hover:text-green-100 px-3 py-2 font-medium hover:font-bold">Ostatní</a>
+                <a href="#" class="text-white hover:text-green-100 px-3 py-2 font-medium hover:font-bold"onclick="LoadMaso()">Maso</a>
+                <a href="#" class="text-white hover:text-green-100 px-3 py-2 font-medium hover:font-bold"onclick="LoadOvoce()">Ovoce</a>
+                <a href="#" class="text-white hover:text-green-100 px-3 py-2 font-medium hover:font-bold"onclick="LoadZelenina()">Zelenina</a>
+                <a href="#" class="text-white hover:text-green-100 px-3 py-2 font-medium hover:font-bold"onclick="LoadOstatni()">Ostatní</a>
                 <button onclick="toggleModal()" data-modal-target="crud-modal"id = "ButtonPridat2" data-modal-toggle="crud-modal" class="text-white hover:text-green-100 px-3 py-2 font-medium hover:font-bold" type="button">Přidat produkt</button>
             </nav>
         </div>
@@ -326,7 +326,7 @@ function resetModal() {
     actionButton.onclick = pridatprodukt;
 }
 
-function upravitprodukt(productElement) {
+async function upravitprodukt(productElement) {
     const updatedName = document.getElementById("nazevproduktu").value;
     const updatedDescription = document.getElementById("popis").value;
     const updatedPrice = document.getElementById("cenaproduktu").value + " Kč";
@@ -343,8 +343,123 @@ function upravitprodukt(productElement) {
     productElement.querySelector("span").textContent = updatedPrice;
     productElement.querySelector("img").src = updatedImageSrc;
     productElement.dataset.category = updatedCategory; // Assuming you store the category in a data attribute
-}
 
+
+
+    const originalPath = updatedImageSrc;
+    const transformedPath = transformPath(originalPath);
+  //  var priceint = parseInt(productElement.querySelector("span").textContent.split(" ")[1].replace("Kč", ""),10);
+   // console.log(priceint);
+
+   var products = await getProducts();
+        var produktt = products.find(p => p.name === updatedName);
+        console.log("produkt id je " + produktt.id);
+
+    const produkt = {
+            Id: produktt.id,
+            Name: "updatedName",
+            Price: "updatedPrice",
+            Category: "Maso",
+            Description: "updatedDescription",
+            ImageUrl: "updatedImageSrc",
+            isAvaible: true
+
+           
+
+        };
+
+        console.log(produkt);
+
+        
+
+        let response;
+        try {
+            response = await fetch(`http://localhost:5145/ProductUpdate/${produktt.id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(produkt)
+            });
+        } catch (error) {
+            console.error('Error:', error);
+        }
+        if (response.ok) {
+            console.log('Produkt byl přidán');
+            toggleModal();
+            displayProducts();
+        } else {
+        const result = await response.text(); 
+        console.log(result);
+        }
+
+
+
+
+}
+    async function LoadMaso(){
+
+        const products = await getProducts();
+    const container = document.querySelector('#produkty'); 
+    container.innerHTML = ''; // Clear the container before adding new products řádek pro tebe :DD
+
+    
+    products.forEach((product, index) => {
+      
+        if(product.category != "Maso"){
+            return;
+        }
+        const productHTML = createProductHTML(product, index);
+        container.innerHTML += productHTML;
+    });
+    updateButtonVisibility();
+    }
+    async function LoadOstatni(){
+        const products = await getProducts();
+    const container = document.querySelector('#produkty'); 
+    container.innerHTML = ''; // Clear the container before adding new products řádek pro tebe :DD
+
+        products.forEach((product, index) => {
+      
+      if(product.category != "Ostatni"){
+          return;
+      }
+      const productHTML = createProductHTML(product, index);
+      container.innerHTML += productHTML;
+  });
+  updateButtonVisibility();
+    }
+    async function LoadOvoce(){
+        const products = await getProducts();
+    const container = document.querySelector('#produkty'); 
+    container.innerHTML = ''; // Clear the container before adding new products řádek pro tebe :DD
+
+        products.forEach((product, index) => {
+      
+      if(product.category != "Ovoce"){
+          return;
+      }
+      const productHTML = createProductHTML(product, index);
+      container.innerHTML += productHTML;
+  });
+  updateButtonVisibility();
+
+    }
+    async function LoadZelenina(){
+        const products = await getProducts();
+    const container = document.querySelector('#produkty'); 
+    container.innerHTML = ''; // Clear the container before adding new products řádek pro tebe :DD
+
+        products.forEach((product, index) => {
+      
+      if(product.category != "Zelenina"){
+          return;
+      }
+      const productHTML = createProductHTML(product, index);
+      container.innerHTML += productHTML;
+  });
+  updateButtonVisibility();
+    }
 
 
 
@@ -404,13 +519,15 @@ function upravitprodukt(productElement) {
         console.log(transformedPath);  // Vstup: "/Images/Mataw.jpg"
         //
         const produkt = {
+
+            
             Name: Name,
             Price: Price,
             Category: Category,
             Description: Description,
             ImageUrl: transformedPath
-        };
-        console.log(produkt);
+}
+       console.log(produkt);
         let response;
         try {
             response = await fetch('http://localhost:5145/Add', {
@@ -521,8 +638,7 @@ async function DeleteProduct(productId) {
 
         if (response.ok) {
             console.log('Produkt byl úspěšně odstraněn');
-            // Zde můžete přidat kód pro aktualizaci UI po odstranění produktu
-            displayProducts(); // Předpokládám, že máte funkci, která znovu načte a zobrazí produkty
+            displayProducts(); 
         } else {
             console.error('Chyba při odstraňování produktu:', await response.text());
         }
