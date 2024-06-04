@@ -177,6 +177,8 @@
     <script>
 
     var UserData;
+    var Idproduct;
+
 
     async function initPage() {
 
@@ -292,7 +294,9 @@ produktyContainer.addEventListener('click', function(event) {
 function populateModal(productElement) {
     const productName = productElement.querySelector("h3").textContent;
     const productDescription = productElement.querySelector("p").textContent;
-    const productCategorie = productElement.dataset.Category;
+
+    
+    const productCategorie = productElement.dataset.Category; // TODO 
     const productPrice = productElement.querySelector("span").textContent.split(" ")[1].replace("Kč", "");
     const productImageSrc = productElement.querySelector("img").src;
 
@@ -332,14 +336,20 @@ function resetModal() {
     actionButton.onclick = pridatprodukt;
 }
 
+
+function IdProduktu(id){
+    Idproduct = id;
+}
+
+
 async function upravitprodukt(productElement) {
     const updatedName = document.getElementById("nazevproduktu").value;
     const updatedDescription = document.getElementById("popis").value;
-    const updatedPrice = document.getElementById("cenaproduktu").value + " Kč";
+    const updatedPrice = document.getElementById("cenaproduktu").value;
     const updatedImageSrc = document.getElementById("ProduktObrazek").dataset.currentImage;
     const updatedCategory = document.getElementById("kategorie").value;
 
-    console.log("Updated ID:", updatedID);
+    console.log("Updated ID:", Idproduct);
     console.log("Updated Name:", updatedName);
     console.log("Updated Description:", updatedDescription);
     console.log("Updated Price:", updatedPrice);
@@ -354,21 +364,22 @@ async function upravitprodukt(productElement) {
 
 
     const originalPath = updatedImageSrc;
+
+
+
     const transformedPath = transformPath(originalPath);
   //  var priceint = parseInt(productElement.querySelector("span").textContent.split(" ")[1].replace("Kč", ""),10);
    // console.log(priceint);
 
-   var products = await getProducts();
-        var produktt = products.find(p => p.name === updatedName);
-        console.log("produkt id je " + produktt.id);
+
 
     const produkt = {
-            Id: produktt.id,
-            Name: "updatedName",
-            Price: "updatedPrice",
-            Category: "Maso",
-            Description: "updatedDescription",
-            ImageUrl: "updatedImageSrc",
+            Id: Idproduct,
+            Name: updatedName,
+            Price: updatedPrice,
+            Category: updatedCategory,
+            Description: updatedDescription,
+            ImageUrl: transformedPath,
             isAvaible: true
 
            
@@ -381,7 +392,7 @@ async function upravitprodukt(productElement) {
 
         let response;
         try {
-            response = await fetch(`http://localhost:5145/ProductUpdate/${produktt.id}`, {
+            response = await fetch(`http://localhost:5145/ProductUpdate/${Idproduct}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -589,7 +600,7 @@ async function upravitprodukt(productElement) {
 function createProductHTML(product, index) {
     return (
         `<main class="bg-white shadow-md rounded-md p-4 flex flex-col">
-            <h1 hidden id="idcko">${product.id}</h1>
+            <h1 hidden id="idcko${index}">${product.id}</h1>
             <img src="${product.imageUrl}" alt="${product.name}" class="w-full h-40 object-cover mb-2"></img>
             <h3 class="text-lg font-semibold" id="produktnazev${index}">${product.name}</h3>
             <p class="text-gray-600 text-sm">${product.description}</p>
@@ -597,7 +608,7 @@ function createProductHTML(product, index) {
                 <span class="text-violet-500 font-bold">Price: ${product.price}Kč</span>
                 <div class="flex space-x-2">
                     <button  class="bg-purple-500 rounded px-1 py- text-white OdstranitButtonE" id="odstranitButton${index}" onclick="DeleteProduct(${product.id})">Odhlásit ❌</button>
-                    <button class="bg-purple-500 rounded px-1 py- text-white UpravitButton">Upravit</button> 
+                    <button class="bg-purple-500 rounded px-1 py- text-white UpravitButton" onclick="IdProduktu(${product.id})">Upravit</button> 
                     <button onclick="addToBasket(document.getElementById('produktnazev${index}').textContent, ${product.price})" class="bg-purple-500 hover:bg-purple-700 text-white font-semibold py-1 px-2 rounded-md">Přidat</button>
                 </div>
             </div>
