@@ -367,10 +367,8 @@ async function upravitprodukt(productElement) {
 
 
 
-    const transformedPath = transformPath(originalPath);
-  //  var priceint = parseInt(productElement.querySelector("span").textContent.split(" ")[1].replace("Kč", ""),10);
-   // console.log(priceint);
-
+    const transformedPath =  LastPartOfPath(originalPath,"/");
+ 
 
 
     const produkt = {
@@ -509,21 +507,19 @@ async function upravitprodukt(productElement) {
         }
     }
 
-    function transformPath(originalPath) {
-    // Získání názvu souboru z původní cesty
-    const filename = originalPath.split('\\').pop();
+    function LastPartOfPath(path,split) {
+        console.log(path);
+    const parts = path.split(split);
+    console.log(parts);
 
-    // Přidání "/Images/" před název souboru
-    const newPath = "/Images/" + filename;
-
-    return newPath;
+    return parts[parts.length - 1];
 }
+
 
 
          async function pridatprodukt(){
 
 
-        const id = document.getElementById("idcko").value;
         const Name = document.getElementById("nazevproduktu").value;
         const Price = parseFloat(document.getElementById("cenaproduktu").value);
         const Category = document.getElementById("kategorie").value;
@@ -532,8 +528,7 @@ async function upravitprodukt(productElement) {
         console.log(ImageUrl);
 
         // Použití funkce
-        const originalPath = ImageUrl;
-        const transformedPath = transformPath(originalPath);
+        const transformedPath = LastPartOfPath(ImageUrl,"\\");
         console.log(transformedPath);  // Vstup: "/Images/Mataw.jpg"
         //
         const produkt = {
@@ -601,7 +596,7 @@ function createProductHTML(product, index) {
     return (
         `<main class="bg-white shadow-md rounded-md p-4 flex flex-col">
             <h1 hidden id="idcko${index}">${product.id}</h1>
-            <img src="${product.imageUrl}" alt="${product.name}" class="w-full h-40 object-cover mb-2"></img>
+            <img src="\\Images\\${product.imageUrl}" alt="${product.name}" class="w-full h-40 object-cover mb-2"></img>
             <h3 class="text-lg font-semibold" id="produktnazev${index}">${product.name}</h3>
             <p class="text-gray-600 text-sm">${product.description}</p>
             <div class="flex justify-between items-center mt-auto">
