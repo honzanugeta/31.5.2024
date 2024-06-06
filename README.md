@@ -38,8 +38,8 @@ Pro spuštění projektu lokálně postupujte podle těchto kroků:
 
 3. Nainstalujte potřebné závislosti:
 
+Doufám že máte už v systému NodeJS.
     ```bash
-    npm install
     npm install -D tailwindcss
     ```
 
