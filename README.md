@@ -4,8 +4,6 @@ Frontend e-commerce projekt postavený pomocí HTML, stylovaný pomocí Tailwind
 
 ![GitHub stars](https://img.shields.io/github/stars/honzanugeta/31.5.2024?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/honzanugeta/31.5.2024?style=social)
-![GitHub issues](https://img.shields.io/github/issues/honzanugeta/31.5.2024)
-![GitHub license](https://img.shields.io/github/license/honzanugeta/31.5.2024)
 
 ## Obsah
 
