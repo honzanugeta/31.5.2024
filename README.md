@@ -2,9 +2,6 @@
 
 Frontend e-commerce projekt postavený pomocí HTML, stylovaný pomocí Tailwind CSS a využívající JavaScript pro dynamické funkce.
 
-![GitHub stars](https://img.shields.io/github/stars/honzanugeta/31.5.2024?style=social)
-![GitHub forks](https://img.shields.io/github/forks/honzanugeta/31.5.2024?style=social)
-
 ## Obsah
 
 - [Úvod](#úvod)
