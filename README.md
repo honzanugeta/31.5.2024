@@ -8,9 +8,6 @@ Frontend e-commerce projekt postavený pomocí HTML, stylovaný pomocí Tailwind
 - [Funkce](#funkce)
 - [Instalace](#instalace)
 - [Použití](#použití)
-- [Přispívání](#přispívání)
-- [Licence](#licence)
-- [Kontakt](#kontakt)
 
 ## Úvod
 
